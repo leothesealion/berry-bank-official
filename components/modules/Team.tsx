@@ -1,0 +1,89 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { User } from 'lucide-react';
+import { TEAM_MEMBERS } from '@/lib/constants';
+
+export function Team() {
+  return (
+    <div className="relative w-full h-full bg-void flex items-center justify-center p-6 md:p-12 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-berry/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-5xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold text-mist mb-4">
+            Meet Our Founders
+          </h2>
+          <p className="text-mist/60 max-w-xl mx-auto">
+            The passionate team behind Latin America&apos;s first green digital bank.
+          </p>
+        </motion.div>
+
+        {/* Team Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          {TEAM_MEMBERS.map((member, index) => (
+            <motion.div
+              key={member.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="text-center group"
+            >
+              {/* Avatar */}
+              <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto mb-4">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-berry to-growth opacity-50 blur-lg group-hover:opacity-75 transition-opacity" />
+                <div className="relative w-full h-full rounded-full bg-gradient-to-br from-berry/30 to-growth/30 border-2 border-white/20 flex items-center justify-center overflow-hidden">
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <User className="w-12 h-12 md:w-16 md:h-16 text-mist/50" />
+                  )}
+                </div>
+              </div>
+
+              {/* Info */}
+              <h3 className="text-lg md:text-xl font-bold text-mist mb-1">
+                {member.name}
+              </h3>
+              <p className="text-sm text-berry">
+                {member.role}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Company Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mt-16 text-center"
+        >
+          <div className="inline-flex flex-col md:flex-row items-center gap-4 md:gap-8 text-sm text-mist/40">
+            <span>Berry Fintech, Inc.</span>
+            <span className="hidden md:inline">•</span>
+            <span>Delaware C Corp</span>
+            <span className="hidden md:inline">•</span>
+            <span>Headquarters: Austin, TX</span>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}

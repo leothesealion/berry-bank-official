@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-void text-mist;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer components {
+  /* Glassmorphism effect */
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/20 backdrop-blur-lg border border-white/10;
+  }
+
+  /* Snap scroll sections */
+  .snap-section {
+    @apply h-screen w-full snap-start relative flex items-center justify-center;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-berry to-growth bg-clip-text text-transparent;
+  }
+
+  /* Berry button primary */
+  .btn-primary {
+    @apply bg-berry text-mist px-6 py-3 rounded-full font-semibold 
+           transition-all duration-300 hover:bg-berry-600 
+           hover:shadow-lg hover:shadow-berry/30;
+  }
+
+  /* Growth button secondary */
+  .btn-secondary {
+    @apply bg-growth text-mist px-6 py-3 rounded-full font-semibold 
+           transition-all duration-300 hover:bg-growth-600 
+           hover:shadow-lg hover:shadow-growth/30;
+  }
+
+  /* Outline button */
+  .btn-outline {
+    @apply border-2 border-mist text-mist px-6 py-3 rounded-full font-semibold 
+           transition-all duration-300 hover:bg-mist hover:text-void;
+  }
+}
+
+@layer utilities {
+  /* Text shadows */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Focus ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-berry focus:ring-offset-2 focus:ring-offset-void;
+  }
+
+  /* Smooth hover transform */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+}
