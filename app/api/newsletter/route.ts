@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,7 +36,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Send welcome email using Resend
-    await resend.emails.send({
+    await resend!.emails.send({
       from: 'Berry Bank <noreply@berrybank.app>',
       to: email,
       subject: 'Welcome to Berry Bank! 🌱',
@@ -84,7 +86,7 @@ export async function POST(request: NextRequest) {
 
     // Add to audience/contact list (optional - requires Resend Audiences feature)
     try {
-      await resend.contacts.create({
+      await resend!.contacts.create({
         email,
         audienceId: process.env.RESEND_AUDIENCE_ID || '',
       });

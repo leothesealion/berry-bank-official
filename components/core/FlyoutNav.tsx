@@ -1,11 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  FiMenu,
   FiArrowRight,
-  FiX,
-  FiChevronDown,
   FiShoppingCart,
 } from "react-icons/fi";
 import {
@@ -14,60 +11,89 @@ import {
   useScroll,
   motion,
 } from "framer-motion";
-import useMeasure from "react-use-measure";
 import Link from "next/link";
 import { Leaf } from "lucide-react";
 import { useUIStore, useCartStore } from "@/lib/store";
 
 export const FlyoutNav = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [navTheme, setNavTheme] = useState<"light" | "dark">("light");
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50);
   });
 
+  // Chameleon: observe which section is behind the navbar
+  useEffect(() => {
+    const handleThemeDetection = () => {
+      const sections = document.querySelectorAll("[data-nav-theme]");
+      const navHeight = 80; // Approximate nav height
+
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        // Check if section is behind the navbar
+        if (rect.top <= navHeight && rect.bottom > navHeight) {
+          const theme = section.getAttribute("data-nav-theme") as "light" | "dark";
+          if (theme) setNavTheme(theme);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleThemeDetection, { passive: true });
+    handleThemeDetection(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleThemeDetection);
+  }, []);
+
+  // When scrolled, always use dark background with light text
+  // When not scrolled, adapt to the section behind
+  const isLightText = scrolled || navTheme === "dark";
+
   return (
     <nav
-      className={`hidden md:block fixed top-0 z-50 w-full px-6 text-mist transition-all duration-300 ${
+      className={`hidden md:block fixed top-0 z-50 w-full px-6 transition-all duration-300 ${
         scrolled
           ? "bg-void/90 py-3 shadow-xl backdrop-blur-xl"
           : "bg-transparent py-6"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        <Logo />
+        <Logo isLight={isLightText} />
         <div className="flex items-center gap-6">
-          <Links />
-          <CTAs />
+          <Links isLight={isLightText} />
+          <CTAs isLight={isLightText} />
         </div>
       </div>
     </nav>
   );
 };
 
-const Logo = () => {
+const Logo = ({ isLight }: { isLight: boolean }) => {
   return (
     <Link href="/" className="flex items-center gap-2 group">
       <div className="w-10 h-10 rounded-full flex items-center justify-center bg-berry group-hover:bg-berry/80 transition-colors">
         <Leaf className="w-5 h-5 text-mist" />
       </div>
-      <span className="font-bold text-xl text-mist">Berry Bank</span>
+      <span className={`font-bold text-xl transition-colors duration-300 ${isLight ? "text-mist" : "text-void"}`}>
+        Berry Bank
+      </span>
     </Link>
   );
 };
 
-const Links = () => {
+const Links = ({ isLight }: { isLight: boolean }) => {
   return (
     <div className="flex items-center gap-6">
-      <NavLink href="/">Home</NavLink>
-      <FlyoutLink href="#" FlyoutContent={FeaturesContent}>
+      <NavLink href="/" isLight={isLight}>Home</NavLink>
+      <FlyoutLink href="#" FlyoutContent={FeaturesContent} isLight={isLight}>
         Features
       </FlyoutLink>
-      <FlyoutLink href="#" FlyoutContent={CompanyContent}>
+      <FlyoutLink href="#" FlyoutContent={CompanyContent} isLight={isLight}>
         Company
       </FlyoutLink>
-      <NavLink href="/shop">Shop</NavLink>
+      <NavLink href="/shop" isLight={isLight}>Shop</NavLink>
     </div>
   );
 };
@@ -75,14 +101,18 @@ const Links = () => {
 const NavLink = ({
   href,
   children,
+  isLight,
 }: {
   href: string;
   children: React.ReactNode;
+  isLight: boolean;
 }) => {
   return (
     <Link
       href={href}
-      className="relative text-mist/70 hover:text-mist transition-colors"
+      className={`relative transition-colors duration-300 ${
+        isLight ? "text-mist/70 hover:text-mist" : "text-void/70 hover:text-void"
+      }`}
     >
       {children}
     </Link>
@@ -93,10 +123,12 @@ const FlyoutLink = ({
   children,
   href,
   FlyoutContent,
+  isLight,
 }: {
   children: React.ReactNode;
   href: string;
   FlyoutContent?: React.ComponentType;
+  isLight: boolean;
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -108,7 +140,9 @@ const FlyoutLink = ({
       onMouseLeave={() => setOpen(false)}
       className="relative h-fit w-fit"
     >
-      <a href={href} className="relative text-mist/70 hover:text-mist">
+      <button type="button" className={`relative cursor-pointer transition-colors duration-300 ${
+        isLight ? "text-mist/70 hover:text-mist" : "text-void/70 hover:text-void"
+      }`}>
         {children}
         <span
           style={{
@@ -116,7 +150,7 @@ const FlyoutLink = ({
           }}
           className="absolute -bottom-2 -left-2 -right-2 h-1 origin-left scale-x-0 rounded-full bg-berry transition-transform duration-300 ease-out"
         />
-      </a>
+      </button>
       <AnimatePresence>
         {showFlyout && (
           <motion.div
@@ -137,7 +171,7 @@ const FlyoutLink = ({
   );
 };
 
-const CTAs = () => {
+const CTAs = ({ isLight }: { isLight: boolean }) => {
   const { toggleCart } = useUIStore();
   const cartItems = useCartStore((state) => state.getTotalItems());
 
@@ -145,7 +179,11 @@ const CTAs = () => {
     <div className="flex items-center gap-3">
       <button
         onClick={toggleCart}
-        className="relative flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-mist/70 transition-colors hover:bg-white/10 hover:text-mist"
+        className={`relative flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors ${
+          isLight
+            ? "border-white/10 bg-white/5 text-mist/70 hover:bg-white/10 hover:text-mist"
+            : "border-void/10 bg-void/5 text-void/70 hover:bg-void/10 hover:text-void"
+        }`}
       >
         <FiShoppingCart />
         <span>Cart</span>

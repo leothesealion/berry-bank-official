@@ -3,9 +3,19 @@
 import { motion } from 'framer-motion';
 import { Gamepad2, Users, Smartphone, TreePine, Wallet, Shield } from 'lucide-react';
 import { TiltCard } from '@/components/core';
-import { FEATURES } from '@/lib/constants';
 
-const iconMap = {
+interface FeatureItem {
+  _id: string;
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+interface FeatureGridProps {
+  features?: FeatureItem[];
+}
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Gamepad2,
   Users,
   Smartphone,
@@ -14,7 +24,13 @@ const iconMap = {
   Shield,
 };
 
-export function FeatureGrid() {
+const defaultFeatures: FeatureItem[] = [
+  { _id: '1', title: 'The Green Hub', description: 'Geofenced marketplace to fund local projects.', icon: 'TreePine' },
+  { _id: '2', title: 'Digital Wallet', description: 'Fee-free, virtual-only. No plastic waste.', icon: 'Wallet' },
+  { _id: '3', title: 'Pooling', description: 'Split bills and group gifts instantly.', icon: 'Users' },
+];
+
+export function FeatureGrid({ features = defaultFeatures }: FeatureGridProps) {
   return (
     <div className="relative w-full h-full bg-void flex items-center justify-center p-6 md:p-12 overflow-hidden">
       {/* Background Gradient */}
@@ -42,12 +58,12 @@ export function FeatureGrid() {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURES.map((feature, index) => {
-            const Icon = iconMap[feature.icon as keyof typeof iconMap] || TreePine;
+          {features?.map((feature, index) => {
+            const Icon = iconMap[feature.icon || ''] || TreePine;
             
             return (
               <motion.div
-                key={feature.id}
+                key={feature._id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

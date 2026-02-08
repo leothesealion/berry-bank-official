@@ -4,14 +4,21 @@ import { HomePageClient } from './HomePageClient';
 // Server component that fetches data
 async function getHomePageData() {
   try {
-    const [homePage, impactSection] = await Promise.all([
+    const [homePage, impactSection, companyInfo, siteSettings, greenHub, features, teamMembers, faqs, products] = await Promise.all([
       client.fetch(queries.homePage),
-      client.fetch(`*[_type == "impactSection"][0]{ description, chartData }`),
+      client.fetch(queries.impactSection),
+      client.fetch(queries.companyInfo),
+      client.fetch(queries.siteSettings),
+      client.fetch(queries.greenHub),
+      client.fetch(queries.features),
+      client.fetch(queries.teamMembers),
+      client.fetch(queries.faqs),
+      client.fetch(queries.products),
     ]);
-    return { homePage, impactSection };
+    return { homePage, impactSection, companyInfo, siteSettings, greenHub, features, teamMembers, faqs, products };
   } catch (error) {
     console.error('Failed to fetch homepage data:', error);
-    return { homePage: null, impactSection: null };
+    return { homePage: null, impactSection: null, companyInfo: null, siteSettings: null, greenHub: null, features: null, teamMembers: null, faqs: null, products: null };
   }
 }
 

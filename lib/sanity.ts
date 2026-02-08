@@ -20,17 +20,97 @@ export function urlFor(source: SanityImageSource) {
 
 // Queries
 export const queries = {
+  // Singletons
+  siteSettings: `*[_type == "siteSettings"][0]{
+    siteName,
+    siteDescription,
+    siteUrl,
+    contactEmail,
+    navItems,
+    navCtaText,
+    navCtaLink,
+    footerTagline,
+    footerQuote,
+    footerLinks,
+    socialLinks
+  }`,
+
   homePage: `*[_type == "homePage"][0]{
     heroHeadline,
     heroSubline,
     heroHook,
-    ctaText
+    ctaText,
+    heroBadge,
+    heroLearnMoreText,
+    missionSectionTitle,
+    missionSectionSubline,
+    joinHeadline,
+    joinSubline,
+    joinSlogan,
+    trustBadges
   }`,
+
+  companyInfo: `*[_type == "companyInfo"][0]{
+    name,
+    tagline,
+    secondaryTaglines,
+    mission,
+    vision,
+    coreValues,
+    contactEmail,
+    legalName,
+    legalType,
+    headquarters
+  }`,
+
+  impactSection: `*[_type == "impactSection"][0]{
+    title,
+    description,
+    chartData
+  }`,
+
   greenHub: `*[_type == "greenHub"][0]{
     embedUrl,
     title,
     description
   }`,
+
+  contactPage: `*[_type == "contactPage"][0]{
+    badge,
+    headline,
+    subline,
+    cards,
+    newsletterHeading,
+    newsletterSubline
+  }`,
+
+  shopPage: `*[_type == "shopPage"][0]{
+    badge,
+    headline,
+    subline,
+    benefits
+  }`,
+
+  impactPage: `*[_type == "impactPage"][0]{
+    badge,
+    headline,
+    subline,
+    stats,
+    projectCategories,
+    ctaHeadline,
+    ctaSubline,
+    ctaButtonText
+  }`,
+
+  missionPage: `*[_type == "missionPage"][0]{
+    badge,
+    headline,
+    subline,
+    whyChooseHeadline,
+    whyChooseCards
+  }`,
+
+  // Collections
   teamMembers: `*[_type == "teamMember"] | order(order asc){
     _id,
     name,
@@ -38,6 +118,7 @@ export const queries = {
     image,
     bio
   }`,
+
   products: `*[_type == "product"]{
     _id,
     title,
@@ -48,9 +129,17 @@ export const queries = {
     stripePriceId,
     featured
   }`,
+
   faqs: `*[_type == "faq"] | order(order asc){
     _id,
     question,
     answer
+  }`,
+
+  features: `*[_type == "feature"] | order(order asc){
+    _id,
+    title,
+    description,
+    icon
   }`,
 };

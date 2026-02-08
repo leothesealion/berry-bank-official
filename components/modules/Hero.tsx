@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { MagneticButton } from '@/components/core';
 import { ReactivePixelBackground } from './ReactivePixelBackground';
-import { HERO_CONTENT } from '@/lib/constants';
 
 interface HeroProps {
   cmsData?: {
@@ -11,25 +10,28 @@ interface HeroProps {
     heroSubline?: string;
     heroHook?: string;
     ctaText?: string;
+    heroBadge?: string;
+    heroLearnMoreText?: string;
   } | null;
 }
 
 export function Hero({ cmsData }: HeroProps) {
-  // Use CMS data if available, otherwise fall back to constants
-  const headline = cmsData?.heroHeadline || HERO_CONTENT.headline;
-  const subline = cmsData?.heroSubline || HERO_CONTENT.subline;
-  const hook = cmsData?.heroHook || HERO_CONTENT.hook;
-  const cta = cmsData?.ctaText || HERO_CONTENT.cta;
+  const headline = cmsData?.heroHeadline || "Latin America's First Fully Green Digital Bank";
+  const subline = cmsData?.heroSubline || "Don't choose between a sleek experience and saving the planet.";
+  const hook = cmsData?.heroHook || 'Switching to a green bank reduces your carbon footprint by 52.2%.';
+  const cta = cmsData?.ctaText || 'Join the Waitlist';
+  const badge = cmsData?.heroBadge || 'Now accepting early access signups';
+  const learnMore = cmsData?.heroLearnMoreText || 'Learn More';
 
   const handleJoinWaitlist = () => {
-    const contactSection = document.querySelector('#contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+    const joinSection = document.querySelector('#join');
+    if (joinSection) {
+      joinSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-berry">
+    <div className="relative w-full h-full min-h-screen overflow-hidden bg-berry">
       {/* Reactive Pixel Background */}
       <ReactivePixelBackground
         pixelSize={25}
@@ -57,7 +59,7 @@ export function Hero({ cmsData }: HeroProps) {
           >
             <span className="w-2 h-2 rounded-full bg-growth animate-pulse" />
             <span className="text-sm text-mist/90 font-medium">
-              Now accepting early access signups
+              {badge}
             </span>
           </motion.div>
 
@@ -110,13 +112,13 @@ export function Hero({ cmsData }: HeroProps) {
               variant="outline"
               size="lg"
               onClick={() => {
-                const featuresSection = document.querySelector('#features');
-                if (featuresSection) {
-                  featuresSection.scrollIntoView({ behavior: 'smooth' });
+                const greenHubSection = document.querySelector('#green-hub');
+                if (greenHubSection) {
+                  greenHubSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
             >
-              Learn More
+              {learnMore}
             </MagneticButton>
           </motion.div>
         </motion.div>

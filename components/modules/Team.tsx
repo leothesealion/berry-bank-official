@@ -2,9 +2,35 @@
 
 import { motion } from 'framer-motion';
 import { User } from 'lucide-react';
-import { TEAM_MEMBERS } from '@/lib/constants';
+import { urlFor } from '@/lib/sanity';
 
-export function Team() {
+interface TeamMember {
+  _id: string;
+  name: string;
+  role: string;
+  image?: any;
+  bio?: string;
+}
+
+interface TeamProps {
+  members?: TeamMember[];
+  legalName?: string;
+  legalType?: string;
+  headquarters?: string;
+}
+
+const defaultMembers: TeamMember[] = [
+  { _id: '1', name: 'Enrique Gomez Jackson', role: 'CEO & Co-Founder' },
+  { _id: '2', name: 'Don Vasser', role: 'CTO & Co-Founder' },
+  { _id: '3', name: 'Leo Sanchez', role: 'CFO/CMO & Co-Founder' },
+];
+
+export function Team({
+  members = defaultMembers,
+  legalName = 'Berry Fintech, Inc.',
+  legalType = 'Delaware C Corp',
+  headquarters = 'Austin, TX',
+}: TeamProps) {
   return (
     <div className="relative w-full h-full bg-void flex items-center justify-center p-6 md:p-12 overflow-hidden">
       {/* Background */}
@@ -31,9 +57,9 @@ export function Team() {
 
         {/* Team Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {TEAM_MEMBERS.map((member, index) => (
+          {members?.map((member, index) => (
             <motion.div
-              key={member.id}
+              key={member._id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -46,7 +72,7 @@ export function Team() {
                 <div className="relative w-full h-full rounded-full bg-gradient-to-br from-berry/30 to-growth/30 border-2 border-white/20 flex items-center justify-center overflow-hidden">
                   {member.image ? (
                     <img
-                      src={member.image}
+                      src={urlFor(member.image).width(256).height(256).url()}
                       alt={member.name}
                       className="w-full h-full object-cover"
                     />
@@ -76,11 +102,11 @@ export function Team() {
           className="mt-16 text-center"
         >
           <div className="inline-flex flex-col md:flex-row items-center gap-4 md:gap-8 text-sm text-mist/40">
-            <span>Berry Fintech, Inc.</span>
+            <span>{legalName}</span>
             <span className="hidden md:inline">•</span>
-            <span>Delaware C Corp</span>
+            <span>{legalType}</span>
             <span className="hidden md:inline">•</span>
-            <span>Headquarters: Austin, TX</span>
+            <span>Headquarters: {headquarters}</span>
           </div>
         </motion.div>
       </div>

@@ -3,9 +3,24 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
-import { FAQS } from '@/lib/constants';
 
-export function FAQ() {
+interface FAQItem {
+  _id: string;
+  question: string;
+  answer: string;
+}
+
+interface FAQProps {
+  faqs?: FAQItem[];
+}
+
+const defaultFaqs: FAQItem[] = [
+  { _id: '1', question: 'Is my money safe?', answer: 'We use AES-256 encryption and adhere to PCI-DSS compliance.' },
+  { _id: '2', question: 'Physical cards?', answer: 'No, we are a digital wallet to minimize plastic waste.' },
+  { _id: '3', question: 'How do you make money?', answer: 'Interchange fees and future premium features.' },
+];
+
+export function FAQ({ faqs = defaultFaqs }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -18,9 +33,9 @@ export function FAQ() {
       </div>
 
       <div className="space-y-4">
-        {FAQS.map((faq, index) => (
+        {faqs?.map((faq, index) => (
           <motion.div
-            key={faq.id}
+            key={faq._id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

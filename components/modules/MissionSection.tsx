@@ -81,7 +81,7 @@ export function MissionSection({
         </div>
 
         <div className="flex flex-wrap justify-center gap-3">
-          {coreValues.map((value, index) => (
+          {coreValues?.map((value, index) => (
             <motion.span
               key={value}
               initial={{ opacity: 0, scale: 0.9 }}

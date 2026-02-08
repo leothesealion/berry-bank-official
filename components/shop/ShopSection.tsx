@@ -3,36 +3,28 @@
 import { motion } from 'framer-motion';
 import { ShoppingBag } from 'lucide-react';
 import { ProductCard } from './ProductCard';
+import { urlFor } from '@/lib/sanity';
 
-// Sample products - in production these would come from Sanity
-const SAMPLE_PRODUCTS = [
-  {
-    id: '1',
-    title: 'Berry Bank T-Shirt',
-    price: 29.99,
-    description: 'Organic cotton tee with the Berry Bank logo',
-    image: null,
-    stripePriceId: undefined,
-  },
-  {
-    id: '2',
-    title: 'Eco Water Bottle',
-    price: 24.99,
-    description: 'Reusable stainless steel bottle',
-    image: null,
-    stripePriceId: undefined,
-  },
-  {
-    id: '3',
-    title: 'Berry Tote Bag',
-    price: 19.99,
-    description: 'Sustainable canvas tote bag',
-    image: null,
-    stripePriceId: undefined,
-  },
+interface Product {
+  _id: string;
+  title: string;
+  price: number;
+  description?: string;
+  image?: any;
+  stripePriceId?: string;
+}
+
+interface ShopSectionProps {
+  products?: Product[];
+}
+
+const defaultProducts: Product[] = [
+  { _id: '1', title: 'Berry Bank T-Shirt', price: 29.99, description: 'Organic cotton tee with the Berry Bank logo' },
+  { _id: '2', title: 'Eco Water Bottle', price: 24.99, description: 'Reusable stainless steel bottle' },
+  { _id: '3', title: 'Berry Tote Bag', price: 19.99, description: 'Sustainable canvas tote bag' },
 ];
 
-export function ShopSection() {
+export function ShopSection({ products = defaultProducts }: ShopSectionProps) {
   return (
     <div className="relative w-full h-full bg-void flex items-center justify-center p-6 md:p-12 overflow-y-auto">
       {/* Background */}
@@ -65,20 +57,20 @@ export function ShopSection() {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SAMPLE_PRODUCTS.map((product, index) => (
+          {products?.map((product, index) => (
             <motion.div
-              key={product.id}
+              key={product._id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <ProductCard
-                id={product.id}
+                id={product._id}
                 title={product.title}
                 price={product.price}
                 description={product.description}
-                image={product.image || undefined}
+                image={product.image ? urlFor(product.image).width(400).height(400).url() : undefined}
                 stripePriceId={product.stripePriceId}
               />
             </motion.div>

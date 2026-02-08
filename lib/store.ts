@@ -71,20 +71,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
 // UI State Store
 interface UIStore {
-  currentSection: string;
-  setCurrentSection: (section: string) => void;
-  isMobileMenuOpen: boolean;
-  toggleMobileMenu: () => void;
-  closeMobileMenu: () => void;
   toggleCart: () => void;
 }
 
-export const useUIStore = create<UIStore>((set) => ({
-  currentSection: 'hero',
-  setCurrentSection: (section) => set({ currentSection: section }),
-  isMobileMenuOpen: false,
-  toggleMobileMenu: () =>
-    set((state) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
-  closeMobileMenu: () => set({ isMobileMenuOpen: false }),
+export const useUIStore = create<UIStore>(() => ({
   toggleCart: () => useCartStore.getState().toggleCart(),
 }));

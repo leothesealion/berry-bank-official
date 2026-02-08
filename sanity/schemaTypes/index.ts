@@ -7,14 +7,24 @@ import { companyInfo } from './companyInfo';
 import { impactSection } from './impactSection';
 import { feature } from './feature';
 import { aboutPage } from './aboutPage';
+import { siteSettings } from './siteSettings';
+import { contactPage } from './contactPage';
+import { shopPage } from './shopPage';
+import { impactPage } from './impactPage';
+import { missionPage } from './missionPage';
 
 export const schemaTypes = [
   // Singletons
+  siteSettings,
   homePage,
   greenHub,
   companyInfo,
   impactSection,
   aboutPage,
+  contactPage,
+  shopPage,
+  impactPage,
+  missionPage,
   // Collections
   teamMember,
   product,
@@ -23,4 +33,15 @@ export const schemaTypes = [
 ];
 
 // Singleton type names for structure builder
-export const singletonTypes = ['homePage', 'greenHub', 'companyInfo', 'impactSection', 'aboutPage'];
+export const singletonTypes = [
+  'siteSettings',
+  'homePage',
+  'greenHub',
+  'companyInfo',
+  'impactSection',
+  'aboutPage',
+  'contactPage',
+  'shopPage',
+  'impactPage',
+  'missionPage',
+];

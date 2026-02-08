@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Leaf, Mail, MapPin, ExternalLink } from 'lucide-react';
+import { Leaf, Mail, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 interface FooterSectionProps {
   companyName?: string;
@@ -75,18 +76,18 @@ export function FooterSection({
           >
             <h4 className="font-semibold text-mist mb-4">Quick Links</h4>
             <nav className="space-y-2">
-              <a href="/mission" className="block text-mist/60 hover:text-mist transition-colors">
+              <Link href="/mission" className="block text-mist/60 hover:text-mist transition-colors">
                 Mission
-              </a>
-              <a href="/impact" className="block text-mist/60 hover:text-mist transition-colors">
+              </Link>
+              <Link href="/impact" className="block text-mist/60 hover:text-mist transition-colors">
                 Impact
-              </a>
-              <a href="/green-hub" className="block text-mist/60 hover:text-mist transition-colors">
+              </Link>
+              <Link href="/green-hub" className="block text-mist/60 hover:text-mist transition-colors">
                 Green Hub
-              </a>
-              <a href="/privacy" className="block text-mist/60 hover:text-mist transition-colors">
+              </Link>
+              <Link href="/privacy" className="block text-mist/60 hover:text-mist transition-colors">
                 Privacy Policy
-              </a>
+              </Link>
             </nav>
           </motion.div>
         </div>

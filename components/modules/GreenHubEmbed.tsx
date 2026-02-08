@@ -2,9 +2,20 @@
 
 import { motion } from 'framer-motion';
 import { Leaf, ExternalLink } from 'lucide-react';
-import { GREEN_HUB_URL } from '@/lib/constants';
 
-export function GreenHubEmbed() {
+interface GreenHubEmbedProps {
+  embedUrl?: string;
+  title?: string;
+  description?: string;
+}
+
+const DEFAULT_URL = 'https://greeninitiatives-client-prod-608881704830.us-central1.run.app/';
+
+export function GreenHubEmbed({
+  embedUrl = DEFAULT_URL,
+  title = 'Green Hub',
+  description = 'Track your environmental impact and see how your banking choices contribute to a greener planet.',
+}: GreenHubEmbedProps) {
   return (
     <div className="relative w-full h-full bg-mist flex items-center justify-center p-6 md:p-12">
       {/* Background Pattern */}
@@ -32,11 +43,11 @@ export function GreenHubEmbed() {
           </div>
           
           <h2 className="text-3xl md:text-4xl font-bold text-void mb-4">
-            Green Hub
+            {title}
           </h2>
           
           <p className="text-void/60 max-w-2xl mx-auto">
-            Track your environmental impact and see how your banking choices contribute to a greener planet.
+            {description}
           </p>
         </motion.div>
 
@@ -73,7 +84,7 @@ export function GreenHubEmbed() {
               </div>
               
               <a
-                href={GREEN_HUB_URL}
+                href={embedUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -87,8 +98,8 @@ export function GreenHubEmbed() {
           {/* iFrame - Responsive aspect ratios */}
           <div className="relative bg-white rounded-b-3xl">
             <iframe
-              src={GREEN_HUB_URL}
-              title="Berry Bank Green Hub"
+              src={embedUrl}
+              title={`Berry Bank ${title}`}
               className="w-full aspect-[9/16] md:aspect-video border-0"
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

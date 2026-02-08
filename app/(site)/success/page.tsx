@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function SuccessPage() {
   return (
-    <main className="min-h-screen bg-void text-mist flex items-center justify-center p-6">
+    <main className="min-h-screen bg-void text-mist flex items-center justify-center p-6 pb-24 md:pb-6" data-nav-theme="dark">
       <div className="max-w-md w-full text-center">
         {/* Success Icon */}
         <div className="mb-8">
@@ -55,7 +55,7 @@ export default function SuccessPage() {
           </Link>
           
           <Link
-            href="/#shop"
+            href="/shop"
             className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-white/5 border border-white/10 text-mist rounded-full font-semibold hover:bg-white/10 transition-colors"
           >
             Continue Shopping

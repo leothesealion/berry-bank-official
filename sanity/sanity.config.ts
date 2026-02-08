@@ -1,7 +1,6 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes, singletonTypes } from './schemaTypes';
-import { Home, Leaf, Building2, BarChart3, Info, Users, ShoppingBag, HelpCircle, Sparkles } from 'lucide-react';
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
@@ -11,41 +10,17 @@ const structure = (S: any) =>
   S.list()
     .title('Content')
     .items([
-      // Singletons - shown at top
+      // Global
       S.listItem()
-        .title('Home Page')
-        .id('homePage')
+        .title('⚙️ Site Settings')
+        .id('siteSettings')
         .child(
           S.document()
-            .schemaType('homePage')
-            .documentId('homePage')
+            .schemaType('siteSettings')
+            .documentId('siteSettings')
         ),
       S.listItem()
-        .title('Impact Section')
-        .id('impactSection')
-        .child(
-          S.document()
-            .schemaType('impactSection')
-            .documentId('impactSection')
-        ),
-      S.listItem()
-        .title('Green Hub')
-        .id('greenHub')
-        .child(
-          S.document()
-            .schemaType('greenHub')
-            .documentId('greenHub')
-        ),
-      S.listItem()
-        .title('About Page')
-        .id('aboutPage')
-        .child(
-          S.document()
-            .schemaType('aboutPage')
-            .documentId('aboutPage')
-        ),
-      S.listItem()
-        .title('Company Info')
+        .title('🏢 Company Info')
         .id('companyInfo')
         .child(
           S.document()
@@ -53,21 +28,89 @@ const structure = (S: any) =>
             .documentId('companyInfo')
         ),
       S.divider(),
+
+      // Pages
+      S.listItem()
+        .title('🏠 Home Page')
+        .id('homePage')
+        .child(
+          S.document()
+            .schemaType('homePage')
+            .documentId('homePage')
+        ),
+      S.listItem()
+        .title('📊 Impact Page')
+        .id('impactPage')
+        .child(
+          S.document()
+            .schemaType('impactPage')
+            .documentId('impactPage')
+        ),
+      S.listItem()
+        .title('📈 Impact Section (Chart)')
+        .id('impactSection')
+        .child(
+          S.document()
+            .schemaType('impactSection')
+            .documentId('impactSection')
+        ),
+      S.listItem()
+        .title('🌿 Green Hub')
+        .id('greenHub')
+        .child(
+          S.document()
+            .schemaType('greenHub')
+            .documentId('greenHub')
+        ),
+      S.listItem()
+        .title('🎯 Mission Page')
+        .id('missionPage')
+        .child(
+          S.document()
+            .schemaType('missionPage')
+            .documentId('missionPage')
+        ),
+      S.listItem()
+        .title('📞 Contact Page')
+        .id('contactPage')
+        .child(
+          S.document()
+            .schemaType('contactPage')
+            .documentId('contactPage')
+        ),
+      S.listItem()
+        .title('🛒 Shop Page')
+        .id('shopPage')
+        .child(
+          S.document()
+            .schemaType('shopPage')
+            .documentId('shopPage')
+        ),
+      S.listItem()
+        .title('ℹ️ About Page')
+        .id('aboutPage')
+        .child(
+          S.document()
+            .schemaType('aboutPage')
+            .documentId('aboutPage')
+        ),
+      S.divider(),
+
       // Collections
       S.listItem()
-        .title('Features')
+        .title('⭐ Features')
         .schemaType('feature')
         .child(S.documentTypeList('feature').title('Features')),
       S.listItem()
-        .title('Team Members')
+        .title('👥 Team Members')
         .schemaType('teamMember')
         .child(S.documentTypeList('teamMember').title('Team Members')),
       S.listItem()
-        .title('Products')
+        .title('📦 Products')
         .schemaType('product')
         .child(S.documentTypeList('product').title('Products')),
       S.listItem()
-        .title('FAQs')
+        .title('❓ FAQs')
         .schemaType('faq')
         .child(S.documentTypeList('faq').title('FAQs')),
     ]);

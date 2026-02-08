@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Send, CheckCircle, Loader2 } from 'lucide-react';
 import { MagneticButton } from '@/components/core';
-import { SITE_CONFIG } from '@/lib/constants';
 
 export function Newsletter() {
   const [email, setEmail] = useState('');
