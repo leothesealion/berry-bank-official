@@ -97,22 +97,10 @@ const structure = (S: any) =>
       S.divider(),
 
       // Collections
-      S.listItem()
-        .title('⭐ Features')
-        .schemaType('feature')
-        .child(S.documentTypeList('feature').title('Features')),
-      S.listItem()
-        .title('👥 Team Members')
-        .schemaType('teamMember')
-        .child(S.documentTypeList('teamMember').title('Team Members')),
-      S.listItem()
-        .title('📦 Products')
-        .schemaType('product')
-        .child(S.documentTypeList('product').title('Products')),
-      S.listItem()
-        .title('❓ FAQs')
-        .schemaType('faq')
-        .child(S.documentTypeList('faq').title('FAQs')),
+      S.documentTypeListItem('feature').title('⭐ Features').id('feature-list'),
+      S.documentTypeListItem('teamMember').title('👥 Team Members').id('team-list'),
+      S.documentTypeListItem('product').title('📦 Products').id('product-list'),
+      S.documentTypeListItem('faq').title('❓ FAQs').id('faq-list'),
     ]);
 
 export default defineConfig({

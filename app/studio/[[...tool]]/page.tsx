@@ -1,5 +1,6 @@
 'use client';
 
+import './suppress-warnings';
 import { NextStudio } from 'next-sanity/studio';
 import config from '@/sanity/sanity.config';
 

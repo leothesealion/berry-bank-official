@@ -1,6 +1,6 @@
 import { M_PLUS_2 } from 'next/font/google';
 import '@/app/globals.css';
-import { FlyoutNav, FloatingDock } from '@/components/core';
+import { FlyoutNav, FloatingDock, LoadingScreen } from '@/components/core';
 import { Cart } from '@/components/shop';
 
 const mplus = M_PLUS_2({
@@ -16,6 +16,7 @@ export default function SiteLayout({
 }) {
   return (
     <div className={`${mplus.variable} font-sans bg-void text-mist antialiased`}>
+      <LoadingScreen />
       <FlyoutNav />
       <FloatingDock />
       <Cart />

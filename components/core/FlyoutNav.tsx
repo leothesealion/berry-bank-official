@@ -12,7 +12,7 @@ import {
   motion,
 } from "framer-motion";
 import Link from "next/link";
-import { Leaf } from "lucide-react";
+import Image from "next/image";
 import { useUIStore, useCartStore } from "@/lib/store";
 
 export const FlyoutNav = () => {
@@ -73,8 +73,15 @@ export const FlyoutNav = () => {
 const Logo = ({ isLight }: { isLight: boolean }) => {
   return (
     <Link href="/" className="flex items-center gap-2 group">
-      <div className="w-10 h-10 rounded-full flex items-center justify-center bg-berry group-hover:bg-berry/80 transition-colors">
-        <Leaf className="w-5 h-5 text-mist" />
+      <div className={`w-10 h-10 flex items-center justify-center transition-all duration-300 ${isLight ? "text-mist" : "text-void"}`}>
+        <Image 
+          src="/images/logo.svg" 
+          alt="Berry Bank Logo" 
+          width={40} 
+          height={40}
+          className="w-10 h-10 transition-all duration-300"
+          style={{ filter: isLight ? 'invert(1) brightness(1.2)' : 'invert(0)' }}
+        />
       </div>
       <span className={`font-bold text-xl transition-colors duration-300 ${isLight ? "text-mist" : "text-void"}`}>
         Berry Bank

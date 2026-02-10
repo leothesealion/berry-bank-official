@@ -31,7 +31,7 @@ export function Hero({ cmsData }: HeroProps) {
   };
 
   return (
-    <div className="relative w-full h-full min-h-screen overflow-hidden bg-berry">
+    <div className="relative w-full min-h-screen overflow-hidden bg-berry">
       {/* Reactive Pixel Background */}
       <ReactivePixelBackground
         pixelSize={25}
@@ -43,7 +43,7 @@ export function Hero({ cmsData }: HeroProps) {
       <div className="absolute inset-0 bg-gradient-to-b from-berry/50 via-transparent to-berry/80" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-20 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
